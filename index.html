@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        GROWBUGS#NWO
+    </title>
+    <style>
+        body {
+            background-color: rgba(18, 118, 26, 0.468);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .plant {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .email {
+            display: flex;
+            align-items: center;
+            color: rgb(154, 20, 20);
+            font-family: Copperplate;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-top: 3px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(154, 20, 20);
+            font-family: Copperplate;
+            font-size: 35px;
+            font-weight: 800;
+            letter-spacing: -12px;
+            margin-top: 30px;
+            margin-bottom: -43px; /* Adjust the margin value as needed */
+            cursor: pointer;
+        }
+        .title:hover {
+            color: rgb(198, 92, 92);
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <div class="title" onclick="redirectToSpotify()">
+            <h1>GROWBUGS#NWO</h1>
+        </div>
+
+        <div class="plant" onclick="reloadImage()">
+            <img src="https://source.unsplash.com/400x400/?bugs /" alt="a plant">
+        </div>
+
+        <div class="email">
+            <a href="mailto:growbugsnwo@gmail.com">growbugsnwo@gmail.com</a>
+        </div>
+
+
+    <script>
+        function redirectToSpotify() {
+            window.open("https://open.spotify.com/artist/06ecWZ8SAM9MQIyfrcdwcI?si=bcnTXekcTZWfHBok44S-Fgm", "_blank");
+        }
+    </script>
+
+    <script>
+        function reloadImage() {
+            window.location.href = window.location.href;
+        }
+    </script>
+</body>
+</html>
