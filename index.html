@@ -44,8 +44,38 @@
         }
         .title:hover {
             color: rgb(198, 92, 92);
-        }
+        }   
+        #muteButton {
+            color: rgb(0, 0, 0);
+            font-family: Copperplate;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-top: 30px;
+            background: content-box radial-gradient(rgb(154, 20, 20), skyblue);
+            /* border: 4mm ridge rgba(31, 152, 69, 0.529); */
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        } 
+        #muteButton:hover {
+            color: rgb(198, 92, 92);
+        } 
     </style>
+     <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var audio = document.getElementById('background-music');
+            var playbackPosition = localStorage.getItem('music-playback-position');
+
+            if (playbackPosition) {
+                audio.currentTime = parseFloat(playbackPosition);
+            }
+
+            audio.addEventListener('timeupdate', function () {
+                localStorage.setItem('music-playback-position', audio.currentTime.toString());
+            });
+        });
+    </script>
 </head>
 <body>
     <body>
@@ -72,6 +102,26 @@
         function reloadImage() {
             window.location.href = window.location.href;
         }
+    </script>
+
+    <audio id="audioPlayer" src="lordei (for venice).mp3" autoplay loop>
+        <!-- Add fallback content in case the audio element is not supported -->
+        Your browser does not support the <code>audio</code> element.
+    </audio>
+
+    <button id="muteButton">MUTE</button>
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const muteButton = document.getElementById('muteButton');
+
+        muteButton.addEventListener('click', () => {
+            audioPlayer.muted = !audioPlayer.muted; // Toggle the muted state
+            muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label
+        });
+
+        audioPlayer.addEventListener('volumechange', () => {
+            muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label based on the muted state
+        });
     </script>
 </body>
 </html>
