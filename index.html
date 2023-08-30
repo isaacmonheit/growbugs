@@ -1,3 +1,4 @@
+<!-- add human removal ad -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +6,8 @@
         GROWBUGS#NWO
     </title>
     <style>
+        
+        
         body {
             background-color: rgba(18, 118, 26, 0.468);
             margin: 0;
@@ -13,6 +16,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .plant {
             display: flex;
             align-items: center;
@@ -52,7 +56,7 @@
             font-weight: 800;
             letter-spacing: -2px;
             margin-top: 30px;
-            background: content-box radial-gradient(rgb(154, 20, 20), skyblue);
+            background: content-box radial-gradient(rgb(223, 28, 28), skyblue);
             /* border: 4mm ridge rgba(31, 152, 69, 0.529); */
             border: none;
             cursor: pointer;
@@ -61,6 +65,185 @@
         #muteButton:hover {
             color: rgb(198, 92, 92);
         } 
+
+        .ripple {
+            position: absolute;
+            border-radius: 500%;
+            background: rgba(24, 220, 255, 0.3); /* Blue color */
+            transform: scale(3);
+            animation: ripple-animation 4.0s linear;
+            pointer-events: none; /* So it doesn't interfere with other interactions */
+            z-index: 10;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(1);
+                opacity: 10;
+            }
+        }
+
+        .beam {
+            position: absolute;
+            width: 50px;
+            height: 0vh; /* Full height of the viewport */
+            background: rgba(70, 33, 130, 0.648);
+            transform-origin: center bottom;
+            pointer-events: none; /* So it doesn't interfere with other interactions */
+            animation: beam-animation 2s forwards;
+            z-index: 30;
+        }
+
+        @keyframes beam-animation {
+            to {
+                height: 200vh; /* Extend beyond the viewport to ensure it reaches the edge */
+                opacity: 0;
+            }
+        }
+
+        .bug {
+            position: absolute;
+            width: 50px; /* Initial size of the bug */
+            transition: transform 2s; /* Animation for scaling the bug */
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .bug.expanded {
+            transform: scale(20);
+        }
+
+        #factTrigger {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            opacity: 0; /* Make it slightly visible for demonstration, set to 0 for complete invisibility */
+            cursor: crosshair;
+            z-index: 30; /* Ensure it's above other elements */
+        }
+
+        #bugFact {
+            display: none;
+            justify-content: center;   /* Center content horizontally */
+            align-items: center;       /* Center content vertically */
+            flex-direction: column;    /* Stack children vertically */         
+            position: fixed;
+            top: 50%;
+            left: 18%;
+            transform: translate(-50%, -50%) translateY(50px); /* Adjust the 50px value to move the text up or down */
+            background-color: rgba(255, 0, 255, 0.5); /* Semi-transparent purple */
+            padding: 20px;
+            border-radius: 50%; /* Makes it circular */
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 1.5;
+            /* height: 14%;*/
+            /* line-height: 200px; */
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif; /* Generally considered an odd font */
+            font-size: 18px;
+            color: lime; /* Bright green text */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Shadow for the text */
+            border: 5px dashed yellow; /* Dashed yellow border */
+            z-index: 40; /* Ensure it's above other elements */
+            animation: wiggle 0.3s infinite; /* Wiggle animation */
+        }
+
+        @keyframes wiggle {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(2deg); }
+            50% { transform: translate(-50%, -50%) rotate(0deg); }
+            75% { transform: translate(-50%, -50%) rotate(-2deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        }
+
+        .popup {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-color: white;
+            border: 1px solid #000;
+            z-index: 1000;
+            display: none;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+            overflow: hidden; /* This will ensure that the children don't overflow the popup */
+            margin: 0; /* Reset margin */
+            padding: 0; /* Reset padding */
+        }
+
+        .closeBtn {
+            position: absolute;
+            top: -5px; /* Adjust these values to position the X correctly */
+            right: -10px;
+            font-size: 30px;
+            width: 20px;
+            height: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* border: 1px solid black; Black border around the X     */
+            padding: 10px; /* Increase padding to make the clickable area larger */
+            background-color: rgba(0, 0, 0, 0, 0.5); /* Optional: Add a semi-transparent background to visualize the clickable area */
+            margin-right: 10px; /* Add some margin to the close button to position it correctly */
+        }
+
+        .popup img {
+            width: 100%;
+            height: calc(100% - 33px);
+            object-fit: contain; 
+            margin: 0;
+            padding: 0;
+            display: block; /* This will remove any extra space at the bottom of the image */
+        }
+
+        .popupHeader {
+            background-color: rgb(216, 216, 216);
+            width: 100%; /* Make it fill the entire width */
+            height: 30px; /* Set a fixed height for the header */
+            border-bottom: 1px solid black; /* Add a black border to the bottom */
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px; /* Horizontal padding for spacing */
+            margin: 0; /* Reset margin */
+        }
+        #colorButtons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 50;
+        }
+
+        .colorButton {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .colorButton[data-color="red"] {
+            background-color: red;
+        }
+
+        .colorButton[data-color="green"] {
+            background-color: green;
+        }
+
+        .colorButton[data-color="purple"] {
+            background-color: purple;
+        }
+
+        .colorButton[data-color="lightblue"] {
+            background-color: lightblue;
+        }
+
+
     </style>
       <script>
         window.addEventListener('DOMContentLoaded', function () {
@@ -90,6 +273,21 @@
         <div class="email">
             <a href="mailto:growbugsnwo@gmail.com">growbugsnwo@gmail.com</a>
         </div>
+        <div id="colorButtons">
+            <button class="colorButton" data-color="red"></button>
+            <button class="colorButton" data-color="green"></button>
+            <button class="colorButton" data-color="purple"></button>
+            <button class="colorButton" data-color="lightblue"></button>
+        </div>
+        <div id="factTrigger"></div>
+        <div id="bugFact"></div>
+        <div id="popupBox" class="popup">
+            <div class="notificationHeader">    
+                <span>Human Extermination</span>
+                <span class="closeBtn" onclick="closePopup()">&times;</span>
+            </div>
+            <img src="defenders of the realm.png" alt="Bug with construction hat">
+        </div>
 
 
     <script>
@@ -104,24 +302,271 @@
         }
     </script>
 
-    <audio id="audioPlayer" src="lordei (for venice).mp3" autoplay loop>
+    <audio id="audioPlayer" src="Recollections (take 1).mp3" autoplay loop>
         <!-- Add fallback content in case the audio element is not supported -->
         Your browser does not support the <code>audio</code> element.
     </audio>
 
     <button id="muteButton">MUTE</button>
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const muteButton = document.getElementById('muteButton');
+        document.addEventListener('DOMContentLoaded', function () {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const muteButton = document.getElementById('muteButton');
 
-        muteButton.addEventListener('click', () => {
-            audioPlayer.muted = !audioPlayer.muted; // Toggle the muted state
-            muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label
-        });
+            // Check localStorage for mute state on page load
+            const isMuted = localStorage.getItem('audio-muted') === 'true';
+            audioPlayer.muted = isMuted;
+            muteButton.innerText = isMuted ? 'UNMUTE' : 'MUTE';
 
-        audioPlayer.addEventListener('volumechange', () => {
-            muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label based on the muted state
+            muteButton.addEventListener('click', () => {
+                audioPlayer.muted = !audioPlayer.muted; // Toggle the muted state
+                muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label
+
+                // Store mute state in localStorage
+                localStorage.setItem('audio-muted', audioPlayer.muted);
+            });
+
+            audioPlayer.addEventListener('volumechange', () => {
+                muteButton.innerText = audioPlayer.muted ? 'UNMUTE' : 'MUTE'; // Update the button label based on the muted state
+            });
         });
     </script>
+
+    <script>
+        // document.body.addEventListener('mousedown', function(e) {
+        //     // Create 6 beams
+        //     for (let i = 0; i < 6; i++) {
+        //         const beam = document.createElement('div');
+        //         beam.classList.add('beam');
+        //         beam.style.left = e.clientX + 'px';
+        //         beam.style.bottom = (window.innerHeight - e.clientY) + 'px'; // Invert Y to get distance from bottom
+        //         beam.style.transform = `rotate(${i * 60}deg)`; // 360/6 = 60 degrees between each beam
+        //         document.body.appendChild(beam);
+
+        //         // Remove beam after animation completes
+        //         beam.addEventListener('animationend', function() {
+        //             beam.remove();
+        //         });
+        //     }
+        // });
+
+        
+    </script>
+
+    <script>
+        function displayRandomBug() {
+            // Fetch a random bug image from Unsplash
+            fetch('https://source.unsplash.com/random/?bug')
+                .then(response => {
+                    const bug = document.createElement('img');
+                    bug.src = response.url;
+                    bug.classList.add('bug');
+                    bug.style.left = Math.random() * (window.innerWidth - 50) + 'px'; // Random X position
+                    bug.style.top = Math.random() * (window.innerHeight - 50) + 'px'; // Random Y position
+                    document.body.appendChild(bug);
+
+                    bug.addEventListener('click', function() {
+                        bug.classList.add('expanded');
+                        setTimeout(() => {
+                            bug.remove();
+                        }, 1000); // Remove the bug after 1 second
+                    });
+
+                    // Optionally, remove the bug after some time if not clicked
+                    // setTimeout(() => {
+                    //     if (document.body.contains(bug)) {
+                    //         bug.remove();
+                    //     }
+                    // }, 5000); // Remove the bug after 5 seconds
+                })
+                .catch(error => {
+                    console.error("Error fetching image from Unsplash:", error);
+                });
+        }
+
+        // Display a bug every 10 seconds (you can adjust the interval as needed)
+        setInterval(displayRandomBug, 10000);
+
+    </script>
+    
+    <script>
+        const bugFacts = [
+            "Some dragonflies can fly up to 50 miles per hour.",
+            "There are more insects in one square mile of rural land than there are humans on the entire earth.",
+            "The weight of all the ants on Earth is greater than the weight of all the humans on the planet.",
+            "A single honeybee will only produce approximately 1/12 teaspoon of honey in its lifetime.",
+            "The praying mantis is the only insect that can turn its head 360 degrees."
+        ];
+
+        document.getElementById('factTrigger').addEventListener('mouseover', function() {
+            const randomFact = bugFacts[Math.floor(Math.random() * bugFacts.length)];
+            const bugFactElement = document.getElementById('bugFact');
+            bugFactElement.textContent = randomFact;
+            bugFactElement.style.display = 'flex';
+        });
+
+        document.getElementById('factTrigger').addEventListener('mouseout', function() {
+            document.getElementById('bugFact').style.display = 'none';
+        });
+
+    </script>
+   
+    <script>
+       let isDragging = false;
+        let currentPopup = null; // To keep track of the currently dragged popup
+        let offsetX, offsetY;
+        let currentZIndex = 1000; // Start with a base value
+
+        function createPopup() {
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+
+            const popupHeader = document.createElement('div');
+            popupHeader.classList.add('popupHeader');
+            popup.appendChild(popupHeader);
+
+            popup.onmousedown = function() {
+                currentZIndex++; // Increment the z-index
+                popup.style.zIndex = currentZIndex; // Apply the new z-index to the popup
+            }
+
+            const closeBtn = document.createElement('span');
+            closeBtn.classList.add('closeBtn');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = function() {
+                popup.style.display = 'none';
+            };
+            popupHeader.appendChild(closeBtn);
+
+            const img = document.createElement('img');
+            img.src = "defenders of the realm.png"; 
+            img.alt = "Human Extermination";
+            popup.appendChild(img);
+
+            popupHeader.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                currentPopup = popup;
+                offsetX = e.clientX - popup.getBoundingClientRect().left;
+                offsetY = e.clientY - popup.getBoundingClientRect().top;
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging && currentPopup) {
+                    currentPopup.style.left = (e.clientX - offsetX) + 'px';
+                    currentPopup.style.top = (e.clientY - offsetY) + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+                currentPopup = null;
+            });
+
+            document.addEventListener('mouseleave', function() {
+                isDragging = false;
+                currentPopup = null;
+            });
+
+            document.body.appendChild(popup);
+
+            const xPosition = Math.random() * (window.innerWidth - popup.offsetWidth);
+            const yPosition = Math.random() * (window.innerHeight - popup.offsetHeight);
+            
+            popup.style.left = xPosition + 'px';
+            popup.style.top = yPosition + 'px';
+            popup.style.display = 'block';
+        }
+
+        // Create a new popup every 5 seconds
+        setInterval(createPopup, 5000);
+
+
+        let currentRippleColor = 'rgba(24, 163, 188, 0.2)'; // Default ripple color
+        let currentBeamColor = 'rgba(70, 33, 130, 0.648)'; // Default beam color
+
+
+        document.body.addEventListener('mousemove', function (e) {
+            // Create ripple element
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.background = currentRippleColor;
+            ripple.style.width = '100px';
+            ripple.style.height = '30px';
+            ripple.style.left = (e.clientX - 25) + 'px'; // Adjusting by half the ripple size to center it
+            ripple.style.top = (e.clientY - 25) + 'px'; // Adjusting by half the ripple size to center it
+            document.body.appendChild(ripple);
+
+            // Remove ripple after animation completes
+            ripple.addEventListener('animationend', function () {
+                ripple.remove();
+            });
+        });
+
+
+
+        document.querySelectorAll('.colorButton').forEach(button => {
+            button.addEventListener('click', function() {
+                const color = this.getAttribute('data-color');
+                switch (color) {
+                    case 'red':
+                        document.body.style.backgroundColor = 'cyan';
+                        currentRippleColor = 'rgba(255, 0, 0, 0.2)'; // Red
+                        currentBeamColor = 'rgba(255, 30, 100, 0.648)'; // Red
+                        break;
+                    case 'green':
+                        document.body.style.backgroundColor = 'magenta';
+                        currentRippleColor = 'rgba(0, 128, 0, 0.2)'; // Green
+                        currentBeamColor = 'rgba(50, 100, 200, 0.6)'; // Green
+                        break;
+                    case 'purple':
+                        document.body.style.backgroundColor = 'yellow';
+                        currentRippleColor = 'rgba(128, 0, 128, 0.2)'; // Purple
+                        currentBeamColor = 'rgba(200, 50, 70, 0.6)'; // Purple
+                        break;
+                    case 'lightblue':
+                        document.body.style.backgroundColor = 'orange';
+                        currentRippleColor = 'rgba(24, 163, 188, 0.2)'; // Light Blue
+                        currentBeamColor = 'rgba(70, 16, 220, 0.6)'; // Light Blue
+                        break;
+                }
+            });
+        });
+
+        let lastClickedPosition = null;
+        let beamInterval; // Define the beamInterval variable
+
+        document.body.addEventListener('mousedown', function(e) {
+            lastClickedPosition = { x: e.clientX - 25, y: e.clientY };
+
+            // If the interval isn't already set, set it up
+            if (!beamInterval) {
+                beamInterval = setInterval(createBeamsFromLastClickedPosition, 500);
+            }
+        });
+
+        function createBeamsFromLastClickedPosition() {
+            if (lastClickedPosition) {
+                // Create 6 beams
+                for (let i = 0; i < 6; i++) {
+                    const beam = document.createElement('div');
+                    beam.classList.add('beam');
+                    beam.style.background = currentBeamColor;
+                    beam.style.left = lastClickedPosition.x + 'px';
+                    beam.style.bottom = (window.innerHeight - lastClickedPosition.y) + 'px'; // Invert Y to get distance from bottom
+                    beam.style.transform = `rotate(${i * 60}deg)`; // 360/6 = 60 degrees between each beam
+                    document.body.appendChild(beam);
+
+                    // Remove beam after animation completes
+                    beam.addEventListener('animationend', function() {
+                        beam.remove();
+                    });
+                }
+            }
+        }
+
+
+    </script>
+
+
 </body>
 </html>
