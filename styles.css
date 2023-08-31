@@ -1,0 +1,291 @@
+ 
+        /* for the intro screen */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it's above other elements */
+        }
+        
+        #splashScreen span {
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s; /* Smooth transition for hover effect */
+        }
+        
+        #splashScreen span:hover {
+            color: grey;
+        }
+        
+        body {
+            background-color: rgba(18, 118, 26, 0.468);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .plant {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid #000;
+        }
+        .email {
+            display: flex;
+            align-items: center;
+            color: rgb(154, 20, 20);
+            font-family: Copperplate;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-top: 3px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(154, 20, 20);
+            font-family: Copperplate;
+            font-size: 35px;
+            font-weight: 800;
+            letter-spacing: -12px;
+            margin-top: 30px;
+            margin-bottom: -43px; /* Adjust the margin value as needed */
+            cursor: pointer;
+        }
+        .title:hover {
+            color: rgb(198, 92, 92);
+        }   
+        #muteButton {
+            color: rgb(0, 0, 0);
+            font-family: Copperplate;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-top: 30px;
+            background: content-box radial-gradient(rgb(223, 28, 28), skyblue);
+            /* border: 4mm ridge rgba(31, 152, 69, 0.529); */
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        } 
+        #muteButton:hover {
+            color: rgb(198, 92, 92);
+        } 
+
+        .ripple {
+            position: absolute;
+            border-radius: 500%;
+            background: rgba(24, 220, 255, 0.3); /* Blue color */
+            transform: scale(3);
+            animation: ripple-animation 4.0s linear;
+            pointer-events: none; /* So it doesn't interfere with other interactions */
+            z-index: 10;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(1);
+                opacity: 10;
+            }
+        }
+
+        .beam {
+            position: absolute;
+            width: 50px;
+            height: 0vh; /* Full height of the viewport */
+            background: rgba(70, 33, 130, 0.648);
+            transform-origin: center bottom;
+            pointer-events: none; /* So it doesn't interfere with other interactions */
+            animation: beam-animation 2s forwards;
+            z-index: 30;
+        }
+
+        @keyframes beam-animation {
+            to {
+                height: 200vh; /* Extend beyond the viewport to ensure it reaches the edge */
+                opacity: 0;
+            }
+        }
+
+        .bug {
+            position: absolute;
+            width: 50px; /* Initial size of the bug */
+            transition: transform 2s; /* Animation for scaling the bug */
+            cursor: pointer;
+            z-index: 20;
+            border: 3px solid #000;
+        }
+
+        .bug.expanded {
+            transform: scale(20);
+        }
+
+        #factTrigger {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            opacity: 0; /* Make it slightly visible for demonstration, set to 0 for complete invisibility */
+            cursor: crosshair;
+            z-index: 30; /* Ensure it's above other elements */
+        }
+
+        #bugFact {
+            display: none;
+            justify-content: center;   /* Center content horizontally */
+            align-items: center;       /* Center content vertically */
+            flex-direction: column;    /* Stack children vertically */         
+            position: fixed;
+            top: 50%;
+            left: 18%;
+            transform: translate(-50%, -50%) translateY(50px); /* Adjust the 50px value to move the text up or down */
+            background-color: rgba(255, 0, 255, 0.5); /* Semi-transparent purple */
+            padding: 20px;
+            border-radius: 50%; /* Makes it circular */
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 1.5;
+            /* height: 14%;*/
+            /* line-height: 200px; */
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif; /* Generally considered an odd font */
+            font-size: 18px;
+            color: lime; /* Bright green text */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Shadow for the text */
+            border: 5px dashed yellow; /* Dashed yellow border */
+            z-index: 40; /* Ensure it's above other elements */
+            animation: wiggle 0.3s infinite; /* Wiggle animation */
+        }
+
+        @keyframes wiggle {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(2deg); }
+            50% { transform: translate(-50%, -50%) rotate(0deg); }
+            75% { transform: translate(-50%, -50%) rotate(-2deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        }
+
+        .popup {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-color: white;
+            border: 1px solid #000;
+            z-index: 1000;
+            display: none;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+            overflow: hidden; /* This will ensure that the children don't overflow the popup */
+            margin: 0; /* Reset margin */
+            padding: 0; /* Reset padding */
+        }
+
+        .closeBtn {
+            position: absolute;
+            top: -5px; /* Adjust these values to position the X correctly */
+            right: -10px;
+            font-size: 30px;
+            width: 20px;
+            height: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* border: 1px solid black; Black border around the X     */
+            padding: 10px; /* Increase padding to make the clickable area larger */
+            background-color: rgba(0, 0, 0, 0, 0.5); /* Optional: Add a semi-transparent background to visualize the clickable area */
+            margin-right: 10px; /* Add some margin to the close button to position it correctly */
+        }
+
+        .popup img {
+            width: 100%;
+            height: calc(100% - 33px);
+            object-fit: contain; 
+            margin: 0;
+            padding: 0;
+            display: block; /* This will remove any extra space at the bottom of the image */
+        }
+
+        .popupHeader {
+            background-color: rgb(216, 216, 216);
+            width: 100%; /* Make it fill the entire width */
+            height: 30px; /* Set a fixed height for the header */
+            border-bottom: 1px solid black; /* Add a black border to the bottom */
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px; /* Horizontal padding for spacing */
+            margin: 0; /* Reset margin */
+        }
+
+        /* ---------------------------- OPTIONS BUTTONS ------------------------------- */
+        #optionsButtons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 50;
+        }
+        
+        .optionButton {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            border: 2px solid black;
+            cursor: pointer;
+            background-color: transparent; /* Default to transparent */
+            position: relative; /* To position the image inside */
+            padding: 0;
+        }
+        
+        .optionButton img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the image */
+            width: 100%; /* Adjust as needed */
+            height: 100%; /* Adjust as needed */
+        }
+        
+        .optionButton[data-color="red"] {
+            background-color: red;
+        }
+        
+        .optionButton[data-color="green"] {
+            background-color: green;
+        }
+        
+        .optionButton[data-color="purple"] {
+            background-color: purple;
+        }
+        
+        .optionButton[data-color="lightblue"] {
+            background-color: lightblue;
+        }
+
+        #toggleEffectsButton {
+            background: linear-gradient(to right, rgb(103, 13, 148), rgb(7, 174, 230));
+        }
+        
+        
+
+        #catpillow {
+            width: 200px; 
+            height: 200px; 
+            position: absolute; 
+            bottom: 10px; 
+            left: 200px; 
+            transform: translate(-50%, -50%);
+        }
