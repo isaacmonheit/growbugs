@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const muteButton = document.getElementById('muteButton');
 
     // Check localStorage for mute state on page load
-    const isMuted = localStorage.getItem('audio-muted') === 'true';
+    const isMuted = localStorage.getItem('audio-muted') ? localStorage.getItem('audio-muted') === 'true' : true;
     audioPlayer.muted = isMuted;
     muteButton.innerText = isMuted ? 'UNMUTE' : 'MUTE';
 
@@ -64,6 +64,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+let bugsEnabled = false; // By default, bugs are disabled
+let bugInterval = null;  // Store the interval for bugs
+
+function toggleBugs() {
+    if (bugInterval) {
+        clearInterval(bugInterval); // Stop spawning bugs
+        bugInterval = null;
+    } else {
+        bugInterval = setInterval(displayRandomBug, 10000); // Start spawning bugs every 10 seconds
+    }
+}
 
 function displayRandomBug() {
     // Fetch a random bug image from Unsplash
@@ -96,7 +108,7 @@ function displayRandomBug() {
 }
 
 // Display a bug every 10 seconds (you can adjust the interval as needed)
-setInterval(displayRandomBug, 10000);
+// setInterval(displayRandomBug, 10000);
 
 const bugFacts = [
     "Some dragonflies can fly up to 50 miles per hour.",
@@ -134,7 +146,6 @@ function togglePopups() {
 }
 
 // Initialize the popups on page load
-popupInterval = setInterval(createPopup, 5000);
 
 function createPopup() {
     const popup = document.createElement('div');
@@ -231,7 +242,7 @@ let currentRippleColor = 'rgba(24, 163, 188, 0.2)'; // Default ripple color
 let currentBeamColor = 'rgba(70, 33, 130, 0.648)'; // Default beam color
 let lastClickedPosition = null;
 let beamInterval; // Define the beamInterval variable
-let effectsEnabled = true; // By default, effects are enabled
+let effectsEnabled = false; // By default, effects are disabled
 
 document.getElementById('toggleEffectsButton').addEventListener('click', function() {
     effectsEnabled = !effectsEnabled; // Toggle the effects state
@@ -343,4 +354,40 @@ document.onmouseup = function() {
             catImage.style.top = (window.innerHeight - 50) + 'px'; // Ensure the cat image is exactly at the bottom
         }
     }, 12); // 20ms interval for smoother animation
+}
+
+// ------------------------ RANDOM BUG IMAGE FOR BUTTON -----------------------
+
+// Preload the bug image when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    const bugSpawnerImage = document.getElementById('bugSpawnerImage');
+    
+    fetch('https://source.unsplash.com/random/?bug')
+        .then(response => {
+            bugSpawnerImage.src = response.url;
+        })
+        .catch(error => {
+            console.error("Error preloading bug image for the spawner button:", error);
+        });
+});
+
+function toggleBugs() {
+    const bugSpawnerImage = document.getElementById('bugSpawnerImage');
+
+    // Fetch a new random bug image
+    fetch('https://source.unsplash.com/random/?bug')
+        .then(response => {
+            bugSpawnerImage.src = response.url;
+        })
+        .catch(error => {
+            console.error("Error fetching bug image for the spawner button:", error);
+        });
+
+    // Toggle the spawning of bugs
+    if (bugInterval) {
+        clearInterval(bugInterval); // Stop spawning bugs
+        bugInterval = null;
+    } else {
+        bugInterval = setInterval(displayRandomBug, 3000); // Start spawning bugs every 3 seconds (I noticed you changed it from 10 to 3 seconds)
+    }
 }

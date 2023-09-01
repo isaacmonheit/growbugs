@@ -13,13 +13,27 @@
         <h1>GROWBUGS#NWO</h1>
     </div>
 
+
     <div class="plant" onclick="reloadImage()">
         <img id="plantImage" src="https://source.unsplash.com/400x400/?bugs/" alt="a plant">
+        <div class="icon-container">
+            <a href="https://open.spotify.com/artist/06ecWZ8SAM9MQIyfrcdwcI" target="_blank" class="icon-link">
+                <img src="images/spotify-icon.png" alt="Spotify" class="social-icon">
+            </a>
+            <a href="https://www.instagram.com/zonk_music/" target="_blank" class="icon-link">
+                <img src="images/instagram-icon.png" alt="Instagram" class="social-icon">
+            </a>
+            <a href="mailto:growbugsnwo@gmail.com?subject=Why I Love Bugs!" class="icon-link">
+                <img src="images/retro-email-icon.png" alt="Email Us" class="social-icon">
+            </a>
+        </div>        
+        
     </div>
-
-    <div class="email">
+    
+    
+    <!-- <div class="email">
         <a href="mailto:growbugsnwo@gmail.com?subject=Why I Love Bugs...">growbugsnwo@gmail.com</a>
-    </div>
+    </div> -->
     <div id="optionsButtons">
         <button class="optionButton" data-color="red"></button>
         <button class="optionButton" data-color="green"></button>
@@ -29,6 +43,9 @@
             <img src="defenders of the realm.png" alt="Toggle Popups">
         </button>
         <button class="optionButton" id="toggleEffectsButton"></button>
+        <button class="optionButton" onclick="toggleBugs()">
+            <img id="bugSpawnerImage" src="" alt="Bug Image">
+        </button>
     </div>
            
     <div id="factTrigger"></div>
